@@ -13,7 +13,7 @@ class TimetableGeneratorService
     protected $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     protected $start_hour = 8; // 08:00
     protected $end_hour = 17;   // 17:00
-    protected $slot_duration = 2; // Hours per slot
+    protected $slot_duration = 1; // Hours per slot
 
     /**
      * Generate the timetable for all courses.

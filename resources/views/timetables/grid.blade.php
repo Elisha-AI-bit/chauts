@@ -40,7 +40,7 @@
                     </div>
                 </form>
                 <div class="text-sm text-gray-500 italic">
-                    * Showing 2-hour slots from 08:00 to 18:00
+                    * Showing 1-hour slots from 08:00 to 18:00
                 </div>
             </div>
             @endif
@@ -67,7 +67,7 @@
                             <tr>
                                 <td class="p-3 border font-semibold bg-chalimbana-light text-chalimbana-blue text-center">
                                     {{ \Carbon\Carbon::parse($slot_time)->format('H:i') }} - 
-                                    {{ \Carbon\Carbon::parse($slot_time)->addHours(2)->format('H:i') }}
+                                    {{ \Carbon\Carbon::parse($slot_time)->addHours(1)->format('H:i') }}
                                 </td>
                                 @foreach($days as $day)
                                     @php

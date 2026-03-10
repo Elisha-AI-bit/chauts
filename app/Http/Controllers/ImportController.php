@@ -18,6 +18,30 @@ class ImportController extends Controller
         return view('admin.import');
     }
 
+    public function downloadTemplate($type)
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"{$type}_template.csv\"",
+        ];
+
+        $columns = match ($type) {
+            'programs' => ['program_name', 'faculty'],
+            'courses' => ['course_code', 'course_name', 'program_name', 'year', 'semester'],
+            'lecturers' => ['name', 'email', 'department'],
+            'rooms' => ['room_name', 'capacity'],
+            default => abort(404),
+        };
+
+        $callback = function () use ($columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function importPrograms(Request $request)
     {
         $request->validate(['file' => 'required|mimes:csv,txt']);
@@ -43,11 +67,15 @@ class ImportController extends Controller
         fgetcsv($handle); // skip header
 
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $program = Program::where('program_name', $data[2])->first();
+            
+            if (!$program) continue; // Skip if program not found
+
             Course::updateOrCreate(
                 ['course_code' => $data[0]],
                 [
                     'course_name' => $data[1],
-                    'program_id' => $data[2],
+                    'program_id' => $program->id,
                     'year' => $data[3],
                     'semester' => $data[4]
                 ]

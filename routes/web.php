@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Route::get('/dashboard', function () {
@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
     Route::post('/import/courses', [ImportController::class, 'importCourses'])->name('import.courses');
     Route::post('/import/lecturers', [ImportController::class, 'importLecturers'])->name('import.lecturers');
     Route::post('/import/rooms', [ImportController::class, 'importRooms'])->name('import.rooms');
+    Route::get('/import/template/{type}', [ImportController::class, 'downloadTemplate'])->name('import.template');
 });
 
 Route::middleware('auth')->group(function () {

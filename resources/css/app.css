@@ -2,27 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-[x-cloak] { display: none !important; }
+@layer base {
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --accent: #f472b6;
+        --bg-dark: #0f172a;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #f8fafc;
+        --text-secondary: #94a3b8;
+    }
+
+    body {
+        @apply bg-[#0f172a] text-[#f8fafc] antialiased;
+        font-family: 'Outfit', sans-serif;
+    }
+}
+
+.glass-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.premium-input {
+    @apply bg-white/5 border-white/10 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-xl transition-all;
+}
+
+.premium-btn {
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-95;
+}
+
+[x-cloak] {
+    display: none !important;
+}
 
 @media print {
     .no-print {
         display: none !important;
     }
-    aside, nav, header {
+
+    aside,
+    nav,
+    header {
         display: none !important;
     }
+
     main {
         margin: 0 !important;
         padding: 0 !important;
     }
-    .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+
+    .shadow-sm,
+    .shadow-md,
+    .shadow-lg,
+    .shadow-xl {
         box-shadow: none !important;
     }
+
     table {
         width: 100% !important;
         border-collapse: collapse !important;
     }
-    th, td {
+
+    th,
+    td {
         border: 1px solid #ccc !important;
     }
 }
