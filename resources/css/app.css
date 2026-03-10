@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] { display: none !important; }
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    aside, nav, header {
+        display: none !important;
+    }
+    main {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+        box-shadow: none !important;
+    }
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+    th, td {
+        border: 1px solid #ccc !important;
+    }
+}
